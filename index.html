@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACK X — Premium Store</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:Inter,sans-serif;
+  background:#07070b;
+  color:#fff;
+}
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 7%;
+  border-bottom:1px solid #24242e;
+  background:#0b0b11;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.logo span{color:#a855f7}
+
+nav{display:flex;gap:25px}
+
+nav a{
+  color:#aaa;
+  text-decoration:none;
+  font-size:14px;
+}
+
+nav a:hover{color:#fff}
+
+.cart{
+  background:#a855f7;
+  padding:10px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.hero{
+  min-height:520px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:80px 7%;
+  background:
+    radial-gradient(circle at 80% 30%,#4c1d95 0%,transparent 35%),
+    radial-gradient(circle at 20% 80%,#1e1b4b 0%,transparent 35%);
+}
+
+.hero-text{max-width:600px}
+
+.badge{
+  display:inline-block;
+  background:#211333;
+  color:#c084fc;
+  padding:8px 14px;
+  border-radius:20px;
+  font-size:12px;
+  margin-bottom:20px;
+}
+
+h1{
+  font-size:clamp(40px,6vw,72px);
+  line-height:1.05;
+  margin-bottom:20px;
+}
+
+h1 span{color:#a855f7}
+
+.hero p{
+  color:#aaa;
+  line-height:1.8;
+  margin-bottom:30px;
+}
+
+.btn{
+  display:inline-block;
+  background:#a855f7;
+  color:#fff;
+  padding:14px 24px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+  border:none;
+  cursor:pointer;
+}
+
+.btn:hover{background:#9333ea}
+
+.hero-card{
+  width:280px;
+  height:175px;
+  border-radius:20px;
+  padding:25px;
+  background:linear-gradient(135deg,#7e22ce,#111827);
+  box-shadow:0 25px 80px #7e22ce44;
+  transform:rotate(5deg);
+}
+
+.hero-card h2{
+  font-size:22px;
+  margin-bottom:55px;
+}
+
+.hero-card small{color:#ddd}
+
+section{padding:70px 7%}
+
+.section-title{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.section-title h2{
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.section-title p{color:#888}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+
+.product{
+  background:#111118;
+  border:1px solid #252532;
+  border-radius:16px;
+  padding:25px;
+  transition:.3s;
+}
+
+.product:hover{
+  transform:translateY(-5px);
+  border-color:#a855f7;
+}
+
+.product-icon{
+  font-size:35px;
+  margin-bottom:20px;
+}
+
+.product h3{margin-bottom:10px}
+
+.product p{
+  color:#888;
+  font-size:14px;
+  line-height:1.6;
+  margin-bottom:20px;
+}
+
+.price{
+  font-size:25px;
+  font-weight:800;
+  margin-bottom:20px;
+}
+
+.price span{
+  font-size:13px;
+  color:#888;
+  font-weight:400;
+}
+
+.product button{width:100%}
+
+.features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.feature{
+  text-align:center;
+  padding:25px;
+  background:#111118;
+  border-radius:15px;
+  border:1px solid #22222c;
+}
+
+.feature h3{margin:15px 0 10px}
+
+.feature p{
+  color:#888;
+  font-size:14px;
+  line-height:1.6;
+}
+
+footer{
+  padding:30px 7%;
+  text-align:center;
+  border-top:1px solid #22222c;
+  color:#777;
+  font-size:13px;
+}
+
+/* Payment popup */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#000b;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:20px;
+}
+
+.modal-box{
+  background:#15151e;
+  border:1px solid #333;
+  border-radius:20px;
+  padding:25px;
+  width:380px;
+  max-width:100%;
+  text-align:center;
+  box-shadow:0 20px 80px #000;
+}
+
+.modal-box h2{margin-bottom:10px}
+
+.modal-box p{
+  color:#aaa;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.qr{
+  width:220px;
+  height:220px;
+  object-fit:contain;
+  background:#fff;
+  padding:10px;
+  border-radius:12px;
+  margin:20px auto;
+  display:block;
+}
+
+.close{
+  float:right;
+  cursor:pointer;
+  color:#aaa;
+  font-size:20px;
+}
+
+.close:hover{color:#fff}
+
+.pay-info{
+  background:#0d0d13;
+  border:1px solid #292934;
+  border-radius:10px;
+  padding:12px;
+  margin:15px 0;
+  font-size:13px;
+  color:#ccc;
+}
+
+.whatsapp{
+  display:block;
+  background:#25D366;
+  color:#fff;
+  padding:14px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+  margin-top:12px;
+}
+
+.whatsapp:hover{background:#1ebe5d}
+
+@media(max-width:800px){
+  nav{display:none}
+
+  .hero{
+    flex-direction:column;
+    text-align:center;
+    gap:50px;
+  }
+
+  .products,.features{
+    grid-template-columns:1fr;
+  }
+
+  .hero-card{width:260px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">BLACK <span>X</span></div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#products">Products</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="cart" onclick="openCart()">
+    🛒 Cart (<span id="cartCount">0</span>)
+  </div>
+</header>
+
+<section class="hero" id="home">
+  <div class="hero-text">
+    <div class="badge">✦ PREMIUM DIGITAL STORE</div>
+
+    <h1>Power your<br><span>digital world.</span></h1>
+
+    <p>
+      Discover premium digital products designed for
+      creators, gamers and modern businesses.
+    </p>
+
+    <a href="#products" class="btn">Explore Products →</a>
+  </div>
+
+  <div class="hero-card">
+    <h2>BLACK X</h2>
+    <small>PREMIUM DIGITAL</small>
+  </div>
+</section>
+
+<section id="products">
+  <div class="section-title">
+    <h2>Our Products</h2>
+    <p>Choose your product and pay securely.</p>
+  </div>
+
+  <div class="products">
+
+    <div class="product">
+      <div class="product-icon">💳</div>
+      <h3>Premium Card UI</h3>
+      <p>Beautiful digital card design for your projects.</p>
+      <div class="price">₹99 <span>/ product</span></div>
+      <button class="btn" onclick="buyNow('Premium Card UI',99)">
+        Buy Now
+      </button>
+    </div>
+
+    <div class="product">
+      <div class="product-icon">⚡</div>
+      <h3>Creator Pack</h3>
+      <p>Premium resources for creators and digital businesses.</p>
+      <div class="price">₹199 <span>/ product</span></div>
+      <button class="btn" onclick="buyNow('Creator Pack',199)">
+        Buy Now
+      </button>
+    </div>
+
+    <div class="product">
+      <div class="product-icon">🚀</div>
+      <h3>Business Pack</h3>
+      <p>Everything you need to start your digital store.</p>
+      <div class="price">₹499 <span>/ product</span></div>
+      <button class="btn" onclick="buyNow('Business Pack',499)">
+        Buy Now
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-title">
+    <h2>Why Choose Us?</h2>
+    <p>Simple. Premium. Reliable.</p>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <div style="font-size:35px">🔒</div>
+      <h3>Secure</h3>
+      <p>Safe and reliable payment experience.</p>
+    </div>
+
+    <div class="feature">
+      <div style="font-size:35px">⚡</div>
+      <h3>Fast</h3>
+      <p>Clean design and smooth performance.</p>
+    </div>
+
+    <div class="feature">
+      <div style="font-size:35px">💬</div>
+      <h3>Support</h3>
+      <p>Get help whenever you need it.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  © 2026 BLACK X. All rights reserved.
+</footer>
+
+<!-- PAYMENT MODAL -->
+
+<div class="modal" id="paymentModal">
+  <div class="modal-box">
+
+    <span class="close" onclick="closePayment()">✕</span>
+
+    <h2>Complete Payment</h2>
+
+    <p id="selectedProduct"></p>
+
+    <img src="qr.png" class="qr" alt="Payment QR">
+
+    <div class="pay-info">
+      Scan QR and pay the exact amount.<br>
+      After payment, contact support on WhatsApp.
+    </div>
+
+    <a id="upiButton" class="btn" style="width:100%">
+      📱 Pay using UPI App
+    </a>
+
+    <a id="whatsappButton" class="whatsapp" target="_blank">
+      💬 Send Payment Message
+    </a>
+
+    <p style="margin-top:15px;font-size:11px;color:#777">
+      Payment confirmation is handled by the merchant.
+    </p>
+
+  </div>
+</div>
+
+<script>
+
+/* APNI REAL UPI ID YAHAN LAGAO */
+const UPI_ID = "YOURUPI@upi";
+
+/* WhatsApp number */
+const WHATSAPP_NUMBER = "916260109044";
+
+let cart = [];
+
+function buyNow(name, price){
+
+  document.getElementById("selectedProduct").innerText =
+    name + " — ₹" + price;
+
+  /*
+    UPI payment link:
+    Isme apni real UPI ID lagana zaroori hai.
+  */
+
+  const upiLink =
+    "upi://pay?pa=" + UPI_ID +
+    "&pn=BLACK%20X" +
+    "&am=" + price +
+    "&cu=INR" +
+    "&tn=" + encodeURIComponent(name);
+
+  document.getElementById("upiButton").href = upiLink;
+
+  const message =
+    "Hello BLACK X Support 👋\n\n" +
+    "I want to buy: " + name + "\n" +
+    "Amount: ₹" + price + "\n\n" +
+    "Please guide me with the order.";
+
+  document.getElementById("whatsappButton").href =
+    "https://wa.me/" + WHATSAPP_NUMBER +
+    "?text=" + encodeURIComponent(message);
+
+  document.getElementById("paymentModal").style.display = "flex";
+}
+
+function closePayment(){
+  document.getElementById("paymentModal").style.display = "none";
+}
+
+function openCart(){
+  alert("Cart feature can be added in the next version.");
+}
+
+</script>
+
+</body>
+  </html>
